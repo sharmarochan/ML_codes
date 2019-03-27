@@ -282,8 +282,89 @@ model.fit_generator(train_gen, validation_data = test_gen, steps_per_epoch=947//
 
 
 
+###################################################################
 
 
 
+from matplotlib.image import imread
 
+
+
+train_arr = []
+label_arr = []
+
+for path, subdirs, files in os.walk(root):
+    for name in files:
+        full_path = os.path.join(path, name)
+        train_arr.append(full_path)
+        
+        name_upto_folder =  os.path.dirname(full_path)        
+        label = os.path.basename(name_upto_folder)
+        label_arr.append(label)
+#        img = imread(full_path)
+#        print(type(img))
+        
+        
+        
+        
+###################################################################
+
+
+root = r"E:\ML_training\flowers\daisy"
+import os, glob, shutil, random
+        
+
+#os.chdir(root)
+#        
+#images = glob.glob("*.jpg")
+        
+        
+
+def get_image_name(path):
+    os.chdir(path)
+    im = glob.glob("*.jpg")
+    im.extend(glob.glob("*.png"))
+    im.extend(glob.glob("*.jpeg"))
+    im.extend(glob.glob("*.bitmap"))
+    im.extend(glob.glob("*.gif"))
+    return im
+    
+        
+        
+
+
+
+test = random.sample(["a","b","c","d","e"],2)        #2. will not work
+print(test)
+
+
+data = ["a","b","c","d","e"]
+
+for i in data:
+    if i not in test:
+        print(i)
+        
+        
+def train_test_split(img_names):
+    img_number = len(img_names)
+    sample_size = int(0.7*img_number)
+    train_imgs = random.sample(img_names,sample_size)
+    test_imgs = [x for x in img_names if x not in train_imgs]
+    return train_imgs, test_imgs
+
+rose_images = get_image_name(root)
+
+train_rose, test_rose = train_test_split(rose_images)
+
+
+print(len(train_rose))
+print(len(test_rose))
+
+#creat folder
+test_dir = r"E:\ML_training\test_dir"
+
+if not os.path.isdir(test_dir):
+    os.makedirs(test_dir)
+
+original_path = r"E:\ML_training\flowers\daisy\5547758_eea9edfd54_n.jpeg"
 
