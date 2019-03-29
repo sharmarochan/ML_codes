@@ -220,7 +220,8 @@ data_.head()
 
 
 
-data_['Species'].unique()
+data_['Species'].unique()    #soft max classes, target values
+
 
 
 data_['Species'] = data_['Species'].map({'Iris-setosa':0, 'Iris-versicolor':1, 'Iris-virginica':2})
